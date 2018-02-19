@@ -234,7 +234,7 @@ impl<'lib, T> Symbol<'lib, T> {
         self.inner
     }
 
-    pub unsafe fn into_type<R>(&self) -> &'static R {
+    pub unsafe fn into_type<R>(&self) -> &'lib R {
         mem::transmute(&self.inner.get_pointer())
     }
 
