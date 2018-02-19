@@ -40,6 +40,7 @@ use std::ffi::OsStr;
 use std::fmt;
 use std::ops;
 use std::marker;
+use std::mem;
 
 #[cfg(unix)]
 use self::os::unix as imp;
@@ -231,6 +232,10 @@ impl<'lib, T> Symbol<'lib, T> {
     /// ```
     pub unsafe fn into_raw(self) -> imp::Symbol<T> {
         self.inner
+    }
+
+    pub unsafe fn into_type<R>(&self) -> &'static R {
+        mem::transmute(&self.inner.get_pointer())
     }
 
     /// Wrap the `os::platform::Symbol` into this safe wrapper.

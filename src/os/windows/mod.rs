@@ -149,7 +149,11 @@ pub struct Symbol<T> {
     pointer: FARPROC,
     pd: marker::PhantomData<T>
 }
-
+impl<T> Symbol<T> {
+    pub(crate) unsafe fn get_pointer(&self) -> FARPROC { 
+        self.pointer
+    }
+}
 impl<T> Symbol<Option<T>> {
     /// Lift Option out of the symbol.
     pub fn lift_option(self) -> Option<Symbol<T>> {

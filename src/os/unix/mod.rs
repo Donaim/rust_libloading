@@ -220,6 +220,11 @@ pub struct Symbol<T> {
     pointer: *mut raw::c_void,
     pd: marker::PhantomData<T>
 }
+impl<T> Symbol<T> {
+    pub(crate) unsafe fn get_pointer(&self) -> *mut raw::c_void { 
+        self.pointer
+    }
+}
 
 impl<T> Symbol<Option<T>> {
     /// Lift Option out of the symbol.
